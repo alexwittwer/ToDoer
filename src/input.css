@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Exo+2&family=Poppins&family=Raleway&display=swap");
+
+* {
+  font-family: "Poppins";
+  padding: 0px;
+  margin: 0px;
+}
+
+:root {
+  --c1: #d6d6d6;
+  --c2: #ed7d31;
+  --c3: #6c5f5b;
+}
+
+.container {
+  background-color: var(--c1);
+  height: 100vh;
+  width: 100vw;
+  visibility: hidden;
+  animation: appear 0s 3.1s forwards;
+}
+
+/* --- Initial Load --- */
+.section-container-title {
+  display: flex;
+  font-size: 10rem;
+  animation: disappear 0s 3s forwards;
+}
+
+.title-one {
+  animation: appear 0s 0s forwards;
+}
+
+.title-two {
+  animation: appear 0s 1s forwards;
+  visibility: hidden;
+}
+
+/* --- Header --- */
+
+.section-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: var(--c2);
+  gap: 16px;
+  max-height: 3rem;
+  font-size: 18pt;
+}
+
+.section-header .logo {
+  max-height: 2rem;
+}
+
+@keyframes appear {
+  to {
+    visibility: visible;
+  }
+}
+
+@keyframes disappear {
+  to {
+    display: none;
+  }
+}

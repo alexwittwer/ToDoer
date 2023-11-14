@@ -1,0 +1,55 @@
+Nav:
+
+Should contain the following elements 
+-This Week
+    No enumerables in nav, display current tasks due this week in the main page
+    Make sure it clears the screen of any other elements. Should just be blank if there are no tasks, and
+    display a message saying "Nothing here." if empty
+-Next Week
+    No enumerables in nav, display current tasks due next week in the main page
+    make sure it clears the screen of any other elements. Should just be blank if there are no tasks, and
+    display a message saying "Nothing here." if empty
+-Projects
+    Enumerable, should expand when clicked and show project items with their name. should indicate that it is expandable.
+        -names should be unique
+        -names should not be empty (eg contain some minimum number of characters) will have to use regex
+        -tasks should be deletable from this screen
+-Add Projects
+    Button, when clicked, do the following:
+        -Open a modal dialogue
+        -render an overlay which blurs the screen
+        -modal should not interfere with current viewport.
+        -when a project is added, interface should switch to that new item.
+///
+
+Header:
+
+Should contain the following items:
+-Title
+    Self explanatory. The header is just for looks and seperation
+
+///
+
+Content Browser:
+
+Main content for the app, consisting of the following items
+-Current viewport:
+    if This Week/Next Week, show tasks that are within the next calendar week
+    if Project, display project name and its individual items.
+
+
+    Projects:
+        -Individual objects which may contain other objects (can be empty)
+
+        Tasks:
+            -a child of projects which contains task name, task description task importance, task due date
+            -has options to edit task descriptiption, task name, task importance, task due date, and delete task
+            -tasks should be small in height and be one line at most. Not a card.
+            -tasks should be differentiable for importance, with at least low and high importance options
+            -a checkbox that shows that a task is completed
+
+///
+
+Footer:
+
+Contains a link to github.

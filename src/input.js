@@ -5,6 +5,7 @@ import makeNav from "./modules/nav";
 
 const container = document.querySelector(".container");
 
+// initial population
 container.appendChild(makeTitle());
 container.appendChild(makeHeader());
 container.appendChild(makeNav());

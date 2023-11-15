@@ -11,9 +11,9 @@ const container = document.querySelector(".container");
 container.appendChild(Title());
 container.appendChild(Header());
 container.appendChild(Nav());
-
 const todoContainer = Content();
 
+// testing
 const todo_1 = new Todo();
 const todo_2 = new Todo();
 const todo_3 = new Todo("Hello", "World");

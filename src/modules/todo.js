@@ -55,13 +55,13 @@ export function addTodo(todo_arg) {
   dueElem.textContent = todo_arg.due;
   completedElem.textContent = todo_arg.completed;
 
-  completedElem.addEventListener((e) => {
+  /*   completedElem.addEventListener((e) => {
     // TODO add logic here to toggle completed
   });
 
   dueElem.addEventListener((e) => {
     // TODO logic for date picker
-  });
+  }); */
 
   const todo_elements = [
     titleElem,

@@ -1,6 +1,6 @@
 import Logo from "../assets/todo-title.svg";
 
-export default function makeHeader() {
+export default function Header() {
   const header = document.createElement("header");
   const title = document.createElement("h3");
   const logo = new Image();

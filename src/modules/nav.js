@@ -1,4 +1,4 @@
-export default function makeNav() {
+export default function Nav() {
   const nav = document.createElement("section");
   const thisWeek = document.createElement("nav");
   const nextWeek = document.createElement("nav");

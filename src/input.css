@@ -105,6 +105,29 @@
   color: white;
 }
 
+/* --- Content --- */
+.content-section {
+  padding: 20px;
+  display: grid;
+  grid-template-rows: repeat(auto-fit, 2rem);
+  gap: 5px;
+}
+
+.todo-item {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr;
+  background-color: var(--c2);
+  color: white;
+  padding: 12px;
+  width: 100%;
+}
+
+.todo-item:hover {
+  background-color: var(--c3);
+}
+
 @keyframes appear {
   to {
     visibility: visible;

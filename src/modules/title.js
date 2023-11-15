@@ -1,4 +1,4 @@
-export default function makeTitle() {
+export default function Title() {
   const container = document.createElement("div");
   const title_1 = document.createElement("h1");
   const title_2 = document.createElement("h1");

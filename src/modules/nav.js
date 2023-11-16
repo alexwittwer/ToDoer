@@ -1,4 +1,6 @@
 import { ProjectModal } from "./modal";
+import { Project } from "./todo";
+import Content from "./content";
 
 export default function Nav() {
   const nav = document.createElement("section");
@@ -15,29 +17,16 @@ export default function Nav() {
     element.classList.add("nav-item");
   });
   addProject.classList.add("add-project-button");
+  projects.classList.add("projects-nav");
 
   thisWeek.textContent = "This week";
   nextWeek.textContent = "Next week";
   projects.textContent = "Projects";
   addProject.textContent = "Add project";
 
-  // event listeners
-
-  /*   thisWeek.addEventListener((e) => {
-    // TODO show all items ending this week
-  });
-
-  nextWeek.addEventListener((e) => {
-    // TODO show all items ending next week
-  });
-
-  projects.addEventListener((e) => {
-    // TODO collapse or expand to show current projects
-  }); */
-
   addProject.addEventListener("click", (e) => {
-    e.preventDefault();
     const selector = document.querySelector(".project-modal");
+    e.preventDefault();
     selector.classList.toggle("hidden");
   });
 

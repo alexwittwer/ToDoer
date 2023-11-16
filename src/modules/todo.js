@@ -59,6 +59,14 @@ class Todo {
       : (this.priority = "High");
   }
 
+  checkPriority(input) {
+    if (input === "on") {
+      this.priority = "High";
+    } else {
+      this.priority = "Low";
+    }
+  }
+
   markCompleted() {
     this.completed === false
       ? (this.completed = true)
@@ -67,12 +75,18 @@ class Todo {
 }
 
 export function addProject(project_arg, container) {
-  project_arg.todos.forEach((todo) => {
-    container.appendChild(addTodo(todo));
-  });
+  if (project_arg.todos == undefined) {
+    const div = document.createElement("div");
+    div.textContent = project_arg.project;
+    container.appendChild(div);
+  } else {
+    project_arg.todos.forEach((todo) => {
+      container.appendChild(addTodo(todo));
+    });
+  }
 }
 
-function addTodo(todo_arg) {
+export function addTodo(todo_arg) {
   const todoElem = document.createElement("div");
   const titleElem = document.createElement("div");
   const descriptionElem = document.createElement("div");

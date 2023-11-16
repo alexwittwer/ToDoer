@@ -1,4 +1,5 @@
-import { Project, Todo } from "./todo";
+import { Project, Todo, addTodo } from "./todo";
+import { updateContent } from "./content";
 
 export function TodoModal() {
   const form = document.createElement("form");
@@ -14,7 +15,7 @@ export function TodoModal() {
   const submitButton = document.createElement("button");
 
   form.setAttribute("action", "");
-  form.classList.add("modal");
+  form.classList.add("modal", "todo-modal", "hidden");
 
   titleInput.setAttribute("type", "text");
   titleInput.setAttribute("name", "Todoer title");
@@ -34,7 +35,7 @@ export function TodoModal() {
 
   descriptionLabel.textContent = "Description";
   titleLabel.textContent = "ToDoer title";
-  priorityLabel.textContent = "Task Priority";
+  priorityLabel.textContent = "Check for high priority";
   dueLabel.textContent = "Date due";
   submitButton.textContent = "Add new ToDoer";
 
@@ -48,10 +49,14 @@ export function TodoModal() {
     const newTodo = new Todo(
       titleInput.value,
       descriptionInput.value,
-      priorityInput.value,
+      priorityInput.checked,
       dueInput.value
     );
-    console.log(newTodo);
+    // add todo to current project
+    const container = document.querySelector(".content-section");
+    const modal = document.querySelector(".todo-modal");
+    container.appendChild(addTodo(newTodo));
+    modal.classList.toggle("hidden");
   });
 
   form.appendChild(titleLabel);
@@ -80,9 +85,20 @@ export function ProjectModal() {
   submitButton.textContent = "Add Project";
   submitButton.addEventListener("click", (e) => {
     e.preventDefault();
+    // toggle hidden
     form.classList.toggle("hidden");
+
+    // creates new project
     const newProject = new Project(titleInput.value);
-    console.log(newProject);
+
+    // creates link to project in nav
+    const projects = document.querySelector(".projects-nav");
+    const newProjectElem = document.createElement("div");
+    newProjectElem.addEventListener("click", (e) => {
+      updateContent(newProject);
+    });
+    newProjectElem.textContent = newProject.project;
+    projects.appendChild(newProjectElem);
   });
 
   titleLabel.setAttribute("for", "projectTitle");

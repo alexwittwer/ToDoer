@@ -1,3 +1,5 @@
+import { ProjectModal } from "./modal";
+
 export default function Nav() {
   const nav = document.createElement("section");
   const thisWeek = document.createElement("nav");
@@ -32,6 +34,12 @@ export default function Nav() {
   projects.addEventListener((e) => {
     // TODO collapse or expand to show current projects
   }); */
+
+  addProject.addEventListener("click", (e) => {
+    e.preventDefault();
+    const selector = document.querySelector(".project-modal");
+    selector.classList.toggle("hidden");
+  });
 
   navitems.forEach((element) => {
     nav.appendChild(element);

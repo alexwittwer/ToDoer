@@ -1,17 +1,46 @@
 import { format } from "date-fns";
 
+class Project {
+  constructor(projectName = "New Project", ...args) {
+    this.project = projectName;
+    this.id = Date.now();
+    this.todos = [...args];
+  }
+
+  add(todo) {
+    if (todo instanceof Todo) {
+      this.todos.push(todo);
+    } else {
+      throw new Error("Error: argument is not a Todo item");
+    }
+  }
+  delete(todo) {
+    if (todo instanceof Todo) {
+      const index = this.todos.indexOf(todo);
+      if (index !== -1) {
+        this.todos.splice(index, 1);
+      } else {
+        throw new Error("Error: argument is not in Todo list");
+      }
+    } else {
+      throw new Error("Error: argument is not a Todo item");
+    }
+  }
+}
 class Todo {
   constructor(
     title = "New todoer",
     description = "Add a description",
     priority = "High",
-    due = format(new Date(), "MM/dd/yyyy")
+    due = format(new Date(), "MM/dd/yyyy"),
+    todoID = null
   ) {
     this.title = title;
     this.description = description;
     this.priority = priority;
     this.due = due;
     this.completed = false;
+    this.todoID = crypto.randomUUID();
   }
 
   updateTodoStrings(newTitle, newDescription) {
@@ -31,21 +60,33 @@ class Todo {
   }
 
   markCompleted() {
-    this.completed == false
+    this.completed === false
       ? (this.completed = true)
       : (this.completed = false);
   }
-
-  deleteTodo() {}
 }
 
-export function addTodo(todo_arg) {
+export function addProject(project_arg, container) {
+  project_arg.todos.forEach((todo) => {
+    container.appendChild(addTodo(todo));
+  });
+}
+
+function addTodo(todo_arg) {
   const todoElem = document.createElement("div");
   const titleElem = document.createElement("div");
   const descriptionElem = document.createElement("div");
   const priorityElem = document.createElement("div");
   const dueElem = document.createElement("div");
-  const completedElem = document.createElement("div");
+  const completedElem = document.createElement("input");
+  const completedElemLabel = document.createElement("label");
+  const id = Math.floor(Math.random() * Date.now());
+
+  completedElem.type = "checkbox";
+  completedElem.id = id;
+  completedElemLabel.setAttribute("for", id);
+  completedElemLabel.textContent = "Mark Complete: ";
+  completedElemLabel.appendChild(completedElem);
 
   todoElem.classList.add("todo-item");
 
@@ -53,22 +94,14 @@ export function addTodo(todo_arg) {
   descriptionElem.textContent = todo_arg.description;
   priorityElem.textContent = todo_arg.priority;
   dueElem.textContent = todo_arg.due;
-  completedElem.textContent = todo_arg.completed;
-
-  /*   completedElem.addEventListener((e) => {
-    // TODO add logic here to toggle completed
-  });
-
-  dueElem.addEventListener((e) => {
-    // TODO logic for date picker
-  }); */
+  completedElem.checked = todo_arg.completed;
 
   const todo_elements = [
     titleElem,
     descriptionElem,
     priorityElem,
     dueElem,
-    completedElem,
+    completedElemLabel,
   ];
   todo_elements.forEach((e) => {
     e.classList.add("todo-param");
@@ -78,4 +111,4 @@ export function addTodo(todo_arg) {
   return todoElem;
 }
 
-export default Todo;
+export { Project, Todo };

@@ -1,10 +1,15 @@
 import "./input.css";
-import Title from "./modules/title";
-import Header from "./modules/header";
-import Nav from "./modules/nav";
-import Content from "./modules/content";
+import {
+  Content,
+  Nav,
+  Header,
+  Title,
+  ProjectModal,
+  TodoModal,
+} from "./modules/TDRender";
 import { Todo, Project, addProject } from "./modules/todo";
-import { TodoModal, ProjectModal } from "./modules/modal";
+
+const projects = [];
 
 const container = document.querySelector(".container");
 
@@ -18,10 +23,11 @@ const todoContainer = Content();
 
 // testing
 const project_1 = new Project("New Project");
+projects.push(project_1);
 const todo_1 = new Todo();
 project_1.add(todo_1);
 addProject(project_1, todoContainer);
 
-container.appendChild(todoContainer);
+console.log(projects);
 
-console.log(Nav());
+container.appendChild(todoContainer);

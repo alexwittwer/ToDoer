@@ -106,12 +106,34 @@
   color: white;
 }
 
+.projects-nav {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.projects-nav:hover {
+  inherits: none;
+}
+
+.projects-nav div {
+  padding-left: 1rem;
+  margin: 0.4rem;
+  font-size: 1.4rem;
+}
+
+.projects-nav div:hover {
+  background-color: var(--c5);
+  color: var(--c4);
+  transition: 250ms;
+}
+
 /* --- Content --- */
 .content-section {
   padding: 20px;
   display: grid;
   grid-template-rows: repeat(auto-fit, 6rem);
   gap: 5px;
+  overflow-y: scroll;
 }
 
 .todo-item {
@@ -121,8 +143,7 @@
   background-color: var(--c2);
   color: white;
   padding: 12px;
-  width: 100%;
-  max-height: 100%;
+  max-width: 100%;
 }
 
 .todo-item:hover {
@@ -138,7 +159,7 @@
   transform: translate(-50%, -50%);
   display: flex;
   flex-flow: column nowrap;
-  background-color: var(--c2);
+  background-color: var(--c4);
   padding: 40px;
   color: white;
   justify-content: center;
@@ -160,9 +181,59 @@
   box-shadow: 5px 5px 0px black;
 }
 
+.todo-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: var(--c4);
+  padding: 40px;
+  color: white;
+  gap: 1rem;
+}
+
+.todo-modal label input {
+  margin-left: 2rem;
+}
+
+.todo-modal button {
+  border: none;
+  padding: 1rem;
+  background-color: var(--c4);
+  color: white;
+}
+
+.todo-modal button:hover {
+  background-color: var(--c5);
+  color: black;
+  transition: 250ms;
+  box-shadow: 5px 5px 0px black;
+}
+
 .hidden {
   display: none;
 }
+
+/* --- Overflow stylig --- */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--c2);
+  border-radius: 10px;
+}
+
 @keyframes appear {
   to {
     visibility: visible;

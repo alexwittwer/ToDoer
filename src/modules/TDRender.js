@@ -41,21 +41,35 @@ function renderTodo(todo_arg) {
   return todoElem;
 }
 
+function killChildren(parent)
+{while (parent.firstElementChild){
+  parent.removeChild(parent.firstElementChild)
+}
+return 
+}
+
+function makeTodoButton(project, parent){
+  const todobtn = document.createElement("button")
+  todobtn.textContent = "Create new ToDoer"
+  todobtn.classList.add("todo-btn")
+  todobtn.addEventListener("click", (e) =>{
+    toggleTodoModal()
+  })
+  parent.appendChild(todobtn)
+}
+
+function toggleTodoModal() {
+  const todoModal = document.querySelector(".todo-modal")
+  todoModal.classList.toggle("hidden")
+}
+
 // updates the content section
 export function updateContent(project) {
   const container = document.querySelector(".content-section"); // content section container
   // kills all children
-  while (container.firstChild) {
-    container.removeChild(container.firstChild);
-  }
-  const todobtn = document.createElement("button");
-  todobtn.textContent = "Create new Todoer";
-  todobtn.classList.add("todo-btn");
-  todobtn.addEventListener("click", (e) => {
-    const todoModal = document.querySelector(".todo-modal");
-    todoModal.classList.toggle("hidden");
-  });
-  container.appendChild(todobtn);
+  killChildren(container)
+// creates todo button
+makeTodoButton(project, container)
   // appends all the todos from the project, if any.
   if (project.todos === undefined) {
     // creates the button for adding todos from modal

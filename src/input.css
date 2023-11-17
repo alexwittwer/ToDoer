@@ -150,6 +150,23 @@
   background-color: var(--c3);
 }
 
+.todo-btn {
+  border: none;
+  background-color: var(--c4);
+  font-size: 2rem;
+  color: white;
+  width: 25rem;
+  margin: 1rem;
+  justify-self: center;
+}
+
+.todo-btn:hover {
+  background-color: var(--c5);
+  box-shadow: 5px 5px 0px black;
+  transition: 250ms;
+  color: black;
+}
+
 /* --- Modals --- */
 
 .project-modal {

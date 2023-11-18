@@ -5,7 +5,6 @@ import {
   Header,
   Title,
   ProjectModal,
-  renderProject,
   TodoModal,
 } from "./modules/TDRender";
 import { Todo, Project } from "./modules/todo";
@@ -27,10 +26,6 @@ container.appendChild(Nav());
 // initial population
 
 // testing
-const project_1 = new Project("New Project");
-const todo_1 = new Todo();
-project_1.add(todo_1);
-renderProject(project_1, todoContainer);
 
 console.log(projects);
 

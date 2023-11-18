@@ -2,7 +2,7 @@ import { Project, Todo } from "./todo";
 import Logo from "../assets/todo-title.svg";
 
 // renders a new Todoer item, local function only
-function renderTodo(todo_arg) {
+function renderTodo(currentTodo) {
   const todoElem = document.createElement("div");
   const titleElem = document.createElement("div");
   const descriptionElem = document.createElement("div");
@@ -20,11 +20,11 @@ function renderTodo(todo_arg) {
 
   todoElem.classList.add("todo-item");
 
-  titleElem.textContent = todo_arg.title;
-  descriptionElem.textContent = todo_arg.description;
-  priorityElem.textContent = todo_arg.priority;
-  dueElem.textContent = todo_arg.due;
-  completedElem.checked = todo_arg.completed;
+  titleElem.textContent = currentTodo.title;
+  descriptionElem.textContent = currentTodo.description;
+  priorityElem.textContent = currentTodo.priority;
+  dueElem.textContent = currentTodo.due;
+  completedElem.checked = currentTodo.completed;
 
   const todo_elements = [
     titleElem,
@@ -53,7 +53,7 @@ function killTodoModal() {
   modal.remove();
 }
 
-function makeTodoButton(project, parent) {
+function makeTodoButton(parent) {
   const todobtn = document.createElement("button");
   todobtn.textContent = "Create new ToDoer";
   todobtn.classList.add("todo-btn");
@@ -68,6 +68,7 @@ function toggleTodoModal() {
   todoModal.classList.toggle("hidden");
 }
 
+// adds new Todo to current project, closes the modal
 function updateProject(newTodo, currentProject) {
   toggleTodoModal();
   currentProject.add(newTodo);
@@ -76,10 +77,9 @@ function updateProject(newTodo, currentProject) {
 // updates the content section
 export function updateContent(project) {
   const container = document.querySelector(".content-section"); // content section container
-  // kills all children
   killChildren(container);
-  // creates todo button
-  makeTodoButton(project, container);
+  makeTodoButton(container);
+
   // appends all the todos from the project, if any.
   if (project.todos === undefined) {
     return;
@@ -158,17 +158,19 @@ export function TodoModal(currentProject) {
   return form;
 }
 
-// Creates a Project dom element and renders its todos
-export function renderProject(projects, container, projectsArr) {
-  if (projects.todos == undefined) {
-    const div = document.createElement("div");
-    div.textContent = projects.project;
-    container.appendChild(div);
-  } else {
-    projects.todos.forEach((todo) => {
-      container.appendChild(renderTodo(todo));
-    });
-  }
+function createProjectElement(project, parent) {
+  const newProjectElem = document.createElement("div");
+  newProjectElem.textContent = project.project;
+  newProjectElem.addEventListener("click", (e) => {
+    updateContent(project);
+    killTodoModal();
+    document.body.appendChild(TodoModal(project));
+  });
+  parent.appendChild(newProjectElem);
+}
+
+function toggleProjectModal(element) {
+  element.classList.toggle("hidden");
 }
 
 // creates the Project modal for creating new projects
@@ -185,40 +187,26 @@ export function ProjectModal(projectsArr, currentProject) {
   titleInput.setAttribute("name", "Project title");
   titleInput.setAttribute("id", "projectTitle");
 
+  titleLabel.setAttribute("for", "projectTitle");
+  titleLabel.textContent = "ToDoer title";
+  titleLabel.appendChild(titleInput);
+
   submitButton.setAttribute("type", "submit");
   submitButton.textContent = "Add Project";
   submitButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    // toggle hidden
-    form.classList.toggle("hidden");
+    const projects = document.querySelector(".projects-nav"); // necessary tight link
 
-    //clear project-nav
-    const projects = document.querySelector(".projects-nav");
+    e.preventDefault();
+    toggleProjectModal(form);
     killChildren(projects);
 
     // creates new project
     const newProject = new Project(titleInput.value);
-
-    // creates link to project in nav
-    projectsArr.push(newProject); // updates the index with the new project
+    projectsArr.push(newProject);
     projectsArr.forEach((item) => {
-      // container for renderProjects
-      const newProjectElem = document.createElement("div"); // new clickable div (put in renderProjects), do foreach
-      newProjectElem.textContent = item.project; // set text content for clickable nav item as the project title
-      newProjectElem.addEventListener("click", (e) => {
-        // this should update the content box with each of the projects todos
-        updateContent(item); // entry point is that project from the array
-        killTodoModal();
-        document.body.appendChild(TodoModal(item));
-      });
-      projects.appendChild(newProjectElem); // appends the content
+      createProjectElement(item, projects);
     });
-    console.log(projectsArr);
   });
-
-  titleLabel.setAttribute("for", "projectTitle");
-  titleLabel.textContent = "ToDoer title";
-  titleLabel.appendChild(titleInput);
 
   form.appendChild(titleLabel);
   form.appendChild(submitButton);

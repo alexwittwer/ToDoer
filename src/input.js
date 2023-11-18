@@ -6,6 +6,7 @@ import {
   Title,
   ProjectModal,
   renderProject,
+  TodoModal,
 } from "./modules/TDRender";
 import { Todo, Project } from "./modules/todo";
 // html container
@@ -17,7 +18,8 @@ const projects = [];
 const currentProject = null;
 
 // populate page
-container.appendChild(ProjectModal(projects));
+container.appendChild(ProjectModal(projects, currentProject));
+container.appendChild(TodoModal(currentProject));
 container.appendChild(Title());
 container.appendChild(Header());
 container.appendChild(Nav());
@@ -33,9 +35,3 @@ renderProject(project_1, todoContainer);
 console.log(projects);
 
 container.appendChild(todoContainer);
-
-const testbutton = document.createElement("button");
-testbutton.addEventListener("click", () => {
-  console.log(projects);
-});
-container.appendChild(testbutton);

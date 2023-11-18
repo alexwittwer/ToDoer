@@ -41,38 +41,47 @@ function renderTodo(todo_arg) {
   return todoElem;
 }
 
-function killChildren(parent)
-{while (parent.firstElementChild){
-  parent.removeChild(parent.firstElementChild)
-}
-return 
+function killChildren(parent) {
+  while (parent.firstElementChild) {
+    parent.removeChild(parent.firstElementChild);
+  }
+  return;
 }
 
-function makeTodoButton(project, parent){
-  const todobtn = document.createElement("button")
-  todobtn.textContent = "Create new ToDoer"
-  todobtn.classList.add("todo-btn")
-  todobtn.addEventListener("click", (e) =>{
-    toggleTodoModal()
-  })
-  parent.appendChild(todobtn)
+function killTodoModal() {
+  const modal = document.querySelector(".todo-modal");
+  modal.remove();
+}
+
+function makeTodoButton(project, parent) {
+  const todobtn = document.createElement("button");
+  todobtn.textContent = "Create new ToDoer";
+  todobtn.classList.add("todo-btn");
+  todobtn.addEventListener("click", (e) => {
+    toggleTodoModal();
+  });
+  parent.appendChild(todobtn);
 }
 
 function toggleTodoModal() {
-  const todoModal = document.querySelector(".todo-modal")
-  todoModal.classList.toggle("hidden")
+  const todoModal = document.querySelector(".todo-modal");
+  todoModal.classList.toggle("hidden");
+}
+
+function updateProject(newTodo, currentProject) {
+  toggleTodoModal();
+  currentProject.add(newTodo);
 }
 
 // updates the content section
 export function updateContent(project) {
   const container = document.querySelector(".content-section"); // content section container
   // kills all children
-  killChildren(container)
-// creates todo button
-makeTodoButton(project, container)
+  killChildren(container);
+  // creates todo button
+  makeTodoButton(project, container);
   // appends all the todos from the project, if any.
   if (project.todos === undefined) {
-    // creates the button for adding todos from modal
     return;
   } else {
     project.todos.forEach((item) => {
@@ -136,12 +145,8 @@ export function TodoModal(currentProject) {
       dueInput.value
     );
     // update content
-    const container = document.querySelector(".content-section");
-    const modal = document.querySelector(".todo-modal");
-    container.appendChild(renderTodo(newTodo));
-    modal.classList.toggle("hidden");
-    currentProject.add(newTodo);
-    console.log(currentProject);
+    updateProject(newTodo, currentProject);
+    updateContent(currentProject);
   });
 
   form.appendChild(titleLabel);
@@ -167,7 +172,7 @@ export function renderProject(projects, container, projectsArr) {
 }
 
 // creates the Project modal for creating new projects
-export function ProjectModal(projectsArr) {
+export function ProjectModal(projectsArr, currentProject) {
   const form = document.createElement("form");
   const titleLabel = document.createElement("label");
   const titleInput = document.createElement("input");
@@ -189,11 +194,7 @@ export function ProjectModal(projectsArr) {
 
     //clear project-nav
     const projects = document.querySelector(".projects-nav");
-    if (projects.firstElementChild) {
-      while (projects.firstElementChild) {
-        projects.removeChild(projects.firstElementChild);
-      }
-    }
+    killChildren(projects);
 
     // creates new project
     const newProject = new Project(titleInput.value);
@@ -203,17 +204,16 @@ export function ProjectModal(projectsArr) {
     projectsArr.forEach((item) => {
       // container for renderProjects
       const newProjectElem = document.createElement("div"); // new clickable div (put in renderProjects), do foreach
+      newProjectElem.textContent = item.project; // set text content for clickable nav item as the project title
       newProjectElem.addEventListener("click", (e) => {
         // this should update the content box with each of the projects todos
         updateContent(item); // entry point is that project from the array
-        newProjectElem.textContent = item.project; // set text content for clickable nav item as the project title
+        killTodoModal();
+        document.body.appendChild(TodoModal(item));
       });
-      newProjectElem.textContent = `${newProject.project}`;
       projects.appendChild(newProjectElem); // appends the content
     });
     console.log(projectsArr);
-
-    document.body.appendChild(TodoModal(newProject));
   });
 
   titleLabel.setAttribute("for", "projectTitle");

@@ -1,23 +1,15 @@
 import "./input.css";
-import {
-  Content,
-  Nav,
-  Header,
-  Title,
-  ProjectModal,
-  TodoModal,
-} from "./modules/TDRender";
-import { Todo, Project } from "./modules/todo";
+import { ProjectModal, TodoModal } from "./modules/TDRender";
+import { Content, Header, Title, Nav } from "./modules/static";
 // html container
 const container = document.querySelector(".container");
 const todoContainer = Content();
 
 // project storage
 const projects = [];
-const currentProject = null;
 
 // populate page
-container.appendChild(ProjectModal(projects, currentProject));
+container.appendChild(ProjectModal(projects));
 container.appendChild(TodoModal(currentProject));
 container.appendChild(Title());
 container.appendChild(Header());
@@ -30,3 +22,13 @@ container.appendChild(Nav());
 console.log(projects);
 
 container.appendChild(todoContainer);
+
+// add test button
+
+const button = document.createElement("button");
+button.textContent = "test button";
+button.addEventListener("click", () => {
+  console.log(currentProject);
+  console.log(projects);
+});
+container.appendChild(button);

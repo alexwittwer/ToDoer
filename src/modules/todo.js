@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { addWeeks, isWithinInterval, format } from "date-fns";
 
 class Project {
   constructor(projectName = "New Project", ...args) {
@@ -72,6 +72,51 @@ class Todo {
       ? (this.completed = true)
       : (this.completed = false);
   }
+}
+
+export function dueThisWeek(projectArr) {
+  const today = new Date();
+  const nextweek = addWeeks(today, 1);
+
+  const dueTodos = [];
+
+  projectArr.forEach((project) => {
+    project.todos.forEach((todo) => {
+      if (
+        isWithinInterval(new Date(todo.due), {
+          start: today,
+          end: nextweek,
+        })
+      ) {
+        dueTodos.push(todo);
+      }
+    });
+  });
+
+  return dueTodos;
+}
+
+export function dueNextWeek(projectArr) {
+  const today = new Date();
+  const nextweek = addWeeks(today, 1);
+  const secondWeek = addWeeks(today, 2);
+
+  const dueTodos = [];
+
+  projectArr.forEach((project) => {
+    project.todos.forEach((todo) => {
+      if (
+        isWithinInterval(new Date(todo.due), {
+          start: nextweek,
+          end: secondWeek,
+        })
+      ) {
+        dueTodos.push(todo);
+      }
+    });
+  });
+
+  return dueTodos;
 }
 
 export { Project, Todo };

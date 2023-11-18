@@ -1,7 +1,6 @@
 import { Project, Todo } from "./todo";
 
-// Helper functions
-
+// --- Helper functions --- //
 function killChildren(parent) {
   while (parent.firstElementChild) {
     parent.removeChild(parent.firstElementChild);
@@ -108,6 +107,7 @@ function updateContent(project) {
   return;
 }
 
+// --- Export Functions --- //
 // Renders the Todo Modal pane (accessible from projects only)
 export function TodoModal(currentProject) {
   const form = document.createElement("form");

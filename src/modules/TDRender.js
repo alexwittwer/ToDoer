@@ -1,4 +1,5 @@
 import { Project, Todo } from "./todo";
+import { addWeeks, isWithinInterval } from "date-fns";
 
 // --- Helper functions --- //
 function killChildren(parent) {
@@ -108,6 +109,63 @@ function updateContent(project) {
 }
 
 // --- Export Functions --- //
+// Renders the navigation pane
+export function Nav(projectsArr) {
+  const nav = document.createElement("section");
+  const thisWeek = document.createElement("nav");
+  const nextWeek = document.createElement("nav");
+  const projects = document.createElement("section");
+  const addProject = document.createElement("button");
+
+  const navelements = [thisWeek, nextWeek, projects];
+  const navitems = [thisWeek, nextWeek, projects, addProject];
+
+  nav.classList.add("nav-section");
+  navelements.forEach((element) => {
+    element.classList.add("nav-item");
+  });
+  addProject.classList.add("add-project-button");
+  projects.classList.add("projects-nav");
+
+  thisWeek.textContent = "This week";
+  nextWeek.textContent = "Next week";
+  projects.textContent = "Projects";
+  addProject.textContent = "Add project";
+
+  thisWeek.classList.add("this-week");
+  nextWeek.classList.add("next-week");
+
+  thisWeek.addEventListener("click", () => {
+    const contentWindow = document.querySelector(".content-section");
+    killChildren(contentWindow);
+    const thisWeekTodos = dueThisWeek(projectsArr);
+    thisWeekTodos.forEach((todo) => {
+      const thisWeekTodoElement = renderTodo(todo);
+      contentWindow.appendChild(thisWeekTodoElement);
+    });
+  });
+  nextWeek.addEventListener("click", () => {
+    const contentWindow = document.querySelector(".content-section");
+    killChildren(contentWindow);
+    const nextWeekTodos = dueNextWeek(projectsArr);
+    nextWeekTodos.forEach((todo) => {
+      const nextWeekTodoElement = renderTodo(todo);
+      contentWindow.appendChild(nextWeekTodoElement);
+    });
+  });
+
+  addProject.addEventListener("click", (e) => {
+    const selector = document.querySelector(".project-modal"); // necessary coupling
+    e.preventDefault();
+    selector.classList.toggle("hidden");
+  });
+
+  navitems.forEach((element) => {
+    nav.appendChild(element);
+  });
+
+  return nav;
+}
 // Renders the Todo Modal pane (accessible from projects only)
 export function TodoModal(currentProject) {
   const form = document.createElement("form");
@@ -158,7 +216,7 @@ export function TodoModal(currentProject) {
       titleInput.value,
       descriptionInput.value,
       priorityInput.checked,
-      dueInput.value
+      new Date(dueInput.value)
     );
     // update content
     updateProject(newTodo, currentProject);
@@ -213,4 +271,64 @@ export function ProjectModal(projectsArr) {
   form.appendChild(submitButton);
 
   return form;
+}
+
+export function dueThisWeek(projectArr) {
+  const today = new Date();
+  const nextweek = addWeeks(new Date(), 1);
+
+  const dueTodos = [];
+
+  projectArr.forEach((project) => {
+    project.todos.forEach((todo) => {
+      if (
+        isWithinInterval(todo.due, {
+          start: today,
+          end: nextweek,
+        })
+      ) {
+        dueTodos.push(todo);
+      }
+    });
+  });
+
+  console.log(dueTodos);
+
+  return dueTodos;
+}
+
+export function dueNextWeek(projectArr) {
+  const today = new Date();
+  const nextweek = addWeeks(today, 1);
+  const secondWeek = addWeeks(today, 2);
+
+  const dueTodos = [];
+
+  projectArr.forEach((project) => {
+    project.todos.forEach((todo) => {
+      if (
+        isWithinInterval(new Date(todo.due), {
+          start: nextweek,
+          end: secondWeek,
+        })
+      ) {
+        dueTodos.push(todo);
+      }
+    });
+  });
+
+  return dueTodos;
+}
+
+function updateWeekTodos(projectArr) {
+  const thisWeek = document.querySelector(".this-week");
+  const nextWeek = document.querySelector(".next-week");
+  const container = document.querySelector(".content-section");
+
+  thisWeek.addEventListener("click", (e) => {});
+
+  nextWeek.addEventListener("click", (e) => {
+    killChildren(container);
+    updateContent(dueNextWeek(projectArr));
+  });
 }

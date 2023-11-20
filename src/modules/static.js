@@ -1,7 +1,8 @@
 import Logo from "../assets/todo-title.svg";
+import { dueThisWeek, dueNextWeek } from "./TDRender";
 
 // Renders the navigation pane
-export function Nav() {
+export function Nav(projectsArr) {
   const nav = document.createElement("section");
   const thisWeek = document.createElement("nav");
   const nextWeek = document.createElement("nav");
@@ -22,6 +23,16 @@ export function Nav() {
   nextWeek.textContent = "Next week";
   projects.textContent = "Projects";
   addProject.textContent = "Add project";
+
+  thisWeek.classList.add("this-week");
+  nextWeek.classList.add("next-week");
+
+  thisWeek.addEventListener("click", () => {
+    dueThisWeek(projectsArr);
+  });
+  nextWeek.addEventListener("click", () => {
+    dueNextWeek(projectsArr);
+  });
 
   addProject.addEventListener("click", (e) => {
     const selector = document.querySelector(".project-modal"); // necessary coupling

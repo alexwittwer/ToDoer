@@ -1,6 +1,6 @@
 import "./input.css";
-import { ProjectModal, TodoModal } from "./modules/TDRender";
-import { Content, Header, Title, Nav } from "./modules/static";
+import { ProjectModal, TodoModal, Nav } from "./modules/TDRender";
+import { Content, Header, Title } from "./modules/static";
 // html container
 const container = document.querySelector(".container");
 const todoContainer = Content();
@@ -10,10 +10,10 @@ const projects = [];
 
 // populate page
 container.appendChild(ProjectModal(projects));
-container.appendChild(TodoModal(currentProject));
+container.appendChild(TodoModal(null));
 container.appendChild(Title());
 container.appendChild(Header());
-container.appendChild(Nav());
+container.appendChild(Nav(projects));
 
 // initial population
 
@@ -28,7 +28,6 @@ container.appendChild(todoContainer);
 const button = document.createElement("button");
 button.textContent = "test button";
 button.addEventListener("click", () => {
-  console.log(currentProject);
   console.log(projects);
 });
 container.appendChild(button);

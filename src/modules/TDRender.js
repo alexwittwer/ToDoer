@@ -1,19 +1,23 @@
 import { Project, Todo } from "./todo";
-import { addWeeks, isWithinInterval } from "date-fns";
+import { addWeeks, isWithinInterval, format } from "date-fns";
 
 // --- Helper functions --- //
-function killChildren(parent) {
+
+// destroys all children elements of a parent element
+export function killChildren(parent) {
   while (parent.firstElementChild) {
     parent.removeChild(parent.firstElementChild);
   }
   return;
 }
 
+// clears Todo modal
 function killTodoModal() {
   const modal = document.querySelector(".todo-modal");
   modal.remove();
 }
 
+// Adds Todo creation button, useful for after clearing content
 function makeTodoButton(parent) {
   const todobtn = document.createElement("button");
   todobtn.textContent = "Create new ToDoer";
@@ -24,6 +28,7 @@ function makeTodoButton(parent) {
   parent.appendChild(todobtn);
 }
 
+// toggles Todo Modal hidden/shown
 function toggleTodoModal() {
   const todoModal = document.querySelector(".todo-modal");
   todoModal.classList.toggle("hidden");
@@ -35,6 +40,7 @@ function updateProject(newTodo, currentProject) {
   currentProject.add(newTodo);
 }
 
+// creates a new project element in the nav pane, adds event listener to populate content pane
 function createProjectElement(project, parent) {
   const newProjectElem = document.createElement("div");
   newProjectElem.textContent = project.project;

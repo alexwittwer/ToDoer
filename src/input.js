@@ -1,6 +1,6 @@
 import "./input.css";
-import { ProjectModal, TodoModal, Nav } from "./modules/TDRender";
-import { Content, Header, Title } from "./modules/static";
+import { ProjectModal, TodoModal } from "./modules/TDRender";
+import { Content, Header, Title, Nav } from "./modules/static";
 // html container
 const container = document.querySelector(".container");
 const todoContainer = Content();

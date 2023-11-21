@@ -28,10 +28,22 @@ export function Nav(projectsArr) {
   nextWeek.classList.add("next-week");
 
   thisWeek.addEventListener("click", () => {
-    dueThisWeek(projectsArr);
+    const contentWindow = document.querySelector(".content-section");
+    killChildren(contentWindow);
+    const thisWeekTodos = dueThisWeek(projectsArr);
+    thisWeekTodos.forEach((todo) => {
+      const thisWeekTodoElement = renderTodo(todo);
+      contentWindow.appendChild(thisWeekTodoElement);
+    });
   });
   nextWeek.addEventListener("click", () => {
-    dueNextWeek(projectsArr);
+    const contentWindow = document.querySelector(".content-section");
+    killChildren(contentWindow);
+    const nextWeekTodos = dueNextWeek(projectsArr);
+    nextWeekTodos.forEach((todo) => {
+      const nextWeekTodoElement = renderTodo(todo);
+      contentWindow.appendChild(nextWeekTodoElement);
+    });
   });
 
   addProject.addEventListener("click", (e) => {

@@ -17,17 +17,14 @@ container.appendChild(Nav(projects));
 
 // initial population
 
-// testing
-
-console.log(projects);
-
 container.appendChild(todoContainer);
 
 // add test button
 
-const button = document.createElement("button");
+/* const button = document.createElement("button");
 button.textContent = "test button";
 button.addEventListener("click", () => {
   console.log(projects);
 });
 container.appendChild(button);
+ */

@@ -37,7 +37,7 @@ class Todo {
   ) {
     this.title = title;
     this.description = description;
-    this.priority = priority;
+    this.priority = this.checkPriority(priority);
     this.due = due;
     this.completed = false;
     this.todoID = crypto.randomUUID();
@@ -53,17 +53,15 @@ class Todo {
       throw new Error("Cannot add non-strings to title and description");
     }
   }
-  changePriority() {
-    this.priority === "High"
-      ? (this.priority = "Low")
-      : (this.priority = "High");
+  changePriority(priority) {
+    priority === "High" ? (this.priority = "Low") : (this.priority = "High");
   }
 
   checkPriority(input) {
-    if (input === "on") {
-      this.priority = "High";
+    if (input === true) {
+      return "High";
     } else {
-      this.priority = "Low";
+      return "Low";
     }
   }
 

@@ -1,5 +1,5 @@
 import Logo from "../assets/todo-title.svg";
-import { dueThisWeek, dueNextWeek } from "./TDRender";
+import { dueThisWeek, dueNextWeek, killChildren, renderTodo } from "./TDRender";
 
 // Renders the navigation pane
 export function Nav(projectsArr) {

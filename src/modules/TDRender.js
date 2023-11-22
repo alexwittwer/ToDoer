@@ -140,6 +140,7 @@ export function TodoModal(currentProject) {
   const dueLabel = document.createElement("label");
   const dueInput = document.createElement("input");
   const submitButton = document.createElement("button");
+  submitButton.type = "button";
 
   form.setAttribute("action", "");
   form.classList.add("modal", "todo-modal", "hidden");
@@ -172,7 +173,6 @@ export function TodoModal(currentProject) {
   dueLabel.appendChild(dueInput);
 
   submitButton.addEventListener("click", (e) => {
-    e.preventDefault();
     const newTodo = new Todo(
       titleInput.value,
       descriptionInput.value,

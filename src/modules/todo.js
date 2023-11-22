@@ -70,6 +70,13 @@ class Todo {
       ? (this.completed = true)
       : (this.completed = false);
   }
+
+  edit(title, description, due, priority) {
+    this.title = title;
+    this.description = description;
+    this.due = due;
+    this.priority = this.checkPriority(priority);
+  }
 }
 
 export { Project, Todo };

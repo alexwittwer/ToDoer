@@ -1,9 +1,12 @@
 import "./input.css";
-import { ProjectModal, TodoModal } from "./modules/TDRender";
+import { ProjectModal, TodoModal, editModal } from "./modules/TDRender";
 import { Content, Header, Title, Nav } from "./modules/static";
 // html container
 const container = document.querySelector(".container");
+const modals = document.createElement("div");
 const todoContainer = Content();
+
+document.body.appendChild(modals);
 
 // project storage
 const projects = [];
@@ -11,6 +14,7 @@ const projects = [];
 // populate page
 container.appendChild(ProjectModal(projects));
 container.appendChild(TodoModal(null));
+modals.appendChild(editModal(null, null));
 container.appendChild(Title());
 container.appendChild(Header());
 container.appendChild(Nav(projects));

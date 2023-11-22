@@ -17,6 +17,22 @@ function killTodoModal() {
   modal.remove();
 }
 
+function killEditModal() {
+  const modal = document.querySelector(".edit-modal");
+  modal.remove();
+}
+
+function toggleEditModal() {
+  const editModal = document.querySelector(".edit-modal");
+  editModal.classList.toggle("hidden");
+}
+
+// toggles Todo Modal hidden/shown
+function toggleTodoModal() {
+  const todoModal = document.querySelector(".todo-modal");
+  todoModal.classList.toggle("hidden");
+}
+
 // Adds Todo creation button, useful for after clearing content
 function makeTodoButton(parent) {
   const todobtn = document.createElement("button");
@@ -28,15 +44,8 @@ function makeTodoButton(parent) {
   parent.appendChild(todobtn);
 }
 
-// toggles Todo Modal hidden/shown
-function toggleTodoModal() {
-  const todoModal = document.querySelector(".todo-modal");
-  todoModal.classList.toggle("hidden");
-}
-
 // adds new Todo to current project, closes the modal
 function updateProject(newTodo, currentProject) {
-  toggleTodoModal();
   currentProject.add(newTodo);
 }
 
@@ -57,6 +66,7 @@ function toggleProjectModal(element) {
   element.classList.toggle("hidden");
 }
 
+// TODO: the killChildren button is killing the modals
 // updates the content section
 function updateContent(project) {
   const container = document.querySelector(".content-section"); // content section container
@@ -68,7 +78,7 @@ function updateContent(project) {
     return;
   } else {
     project.todos.forEach((item) => {
-      container.appendChild(renderTodo(item));
+      container.appendChild(renderTodo(item, project));
     });
   }
 
@@ -173,6 +183,7 @@ export function TodoModal(currentProject) {
   dueLabel.appendChild(dueInput);
 
   submitButton.addEventListener("click", (e) => {
+    e.preventDefault();
     const newTodo = new Todo(
       titleInput.value,
       descriptionInput.value,
@@ -182,6 +193,80 @@ export function TodoModal(currentProject) {
     // update content
     updateProject(newTodo, currentProject);
     updateContent(currentProject);
+    toggleTodoModal();
+  });
+
+  form.appendChild(titleLabel);
+  form.appendChild(descriptionLabel);
+  form.appendChild(priorityLabel);
+  form.appendChild(dueLabel);
+  form.appendChild(submitButton);
+
+  return form;
+}
+
+export function editModal(currentProject, currentTodo) {
+  const form = document.createElement("form");
+
+  const titleLabel = document.createElement("label");
+  const titleInput = document.createElement("input");
+  const descriptionLabel = document.createElement("label");
+  const descriptionInput = document.createElement("input");
+  const priorityLabel = document.createElement("label");
+  const priorityInput = document.createElement("input");
+  const dueLabel = document.createElement("label");
+  const dueInput = document.createElement("input");
+  const submitButton = document.createElement("button");
+  submitButton.type = "button";
+
+  form.setAttribute("action", "");
+  form.classList.add("modal", "edit-modal", "hidden");
+
+  titleInput.setAttribute("type", "text");
+  titleInput.setAttribute("name", "Todoer title");
+  titleInput.setAttribute("id", "title-edit");
+
+  priorityInput.setAttribute("type", "checkbox");
+  priorityInput.setAttribute("name", "priority");
+  priorityInput.setAttribute("id", "taskpriority-edit");
+
+  dueInput.setAttribute("type", "date");
+  dueInput.setAttribute("name", "Due date");
+  dueInput.setAttribute("id", "due-edit");
+
+  descriptionInput.setAttribute("type", "text");
+  descriptionInput.setAttribute("name", "task description");
+  descriptionInput.setAttribute("id", "taskdesc-edit");
+
+  descriptionLabel.textContent = "Description";
+  titleLabel.textContent = "ToDoer title";
+  priorityLabel.textContent = "Check for high priority";
+  dueLabel.textContent = "Date due";
+  submitButton.textContent = "Submit changes";
+
+  titleLabel.appendChild(titleInput);
+  descriptionLabel.appendChild(descriptionInput);
+  priorityLabel.appendChild(priorityInput);
+  dueLabel.appendChild(dueInput);
+
+  submitButton.addEventListener("click", (e) => {
+    console.log(currentProject);
+    console.log(currentTodo);
+    // Check if currentTodo is not null before calling edit()
+    if (currentTodo) {
+      currentTodo.edit(
+        titleInput.value,
+        descriptionInput.value,
+        new Date(dueInput.value),
+        priorityInput.value
+      );
+      // update content
+      updateProject(currentTodo, currentProject);
+      updateContent(currentProject);
+      toggleEditModal();
+    } else {
+      console.error("currentTodo is null or undefined");
+    }
   });
 
   form.appendChild(titleLabel);
@@ -206,17 +291,16 @@ export function ProjectModal(projectsArr) {
   titleInput.setAttribute("type", "text");
   titleInput.setAttribute("name", "Project title");
   titleInput.setAttribute("id", "projectTitle");
+  titleInput.required = true;
 
   titleLabel.setAttribute("for", "projectTitle");
   titleLabel.textContent = "ToDoer title";
   titleLabel.appendChild(titleInput);
 
-  submitButton.setAttribute("type", "submit");
+  submitButton.setAttribute("type", "button");
   submitButton.textContent = "Add Project";
   submitButton.addEventListener("click", (e) => {
     const projects = document.querySelector(".projects-nav"); // necessary tight link
-
-    e.preventDefault();
     toggleProjectModal(form);
     killChildren(projects);
 
@@ -235,7 +319,7 @@ export function ProjectModal(projectsArr) {
 }
 
 // renders a new Todoer item, local function only
-export function renderTodo(currentTodo) {
+export function renderTodo(currentTodo, currentProject) {
   const todoElem = document.createElement("div");
   const titleElem = document.createElement("div");
   const descriptionElem = document.createElement("div");
@@ -271,7 +355,9 @@ export function renderTodo(currentTodo) {
   edit.textContent = "Edit";
   edit.classList.add("edit-btn");
   edit.addEventListener("click", (e) => {
-    console.log(currentTodo);
+    killEditModal();
+    document.body.appendChild(editModal(currentProject, currentTodo));
+    toggleEditModal();
   });
 
   const todo_elements = [
@@ -280,12 +366,15 @@ export function renderTodo(currentTodo) {
     priorityElem,
     dueElem,
     completedElemLabel,
-    edit,
   ];
   todo_elements.forEach((element) => {
     element.classList.add("todo-param");
     todoElem.appendChild(element);
   });
+
+  if (currentProject != null) {
+    todoElem.appendChild(edit);
+  }
 
   return todoElem;
 }

@@ -70,7 +70,7 @@ class Todo {
       : (this.completed = false);
   }
 
-  edit(title, description, due, priority) {
+  edit(title = null, description = null, due = null, priority = null) {
     this.title = title;
     this.description = description;
     this.due = due;

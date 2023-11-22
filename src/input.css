@@ -288,6 +288,39 @@
   box-shadow: 5px 5px 0px black;
 }
 
+.edit-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: var(--c4);
+  padding: 40px;
+  color: white;
+  gap: 1rem;
+  font-size: 1.4rem;
+}
+
+.edit-modal label input {
+  margin-left: 2rem;
+}
+
+.edit-modal button {
+  border: none;
+  padding: 1rem;
+  background-color: var(--c2);
+  color: white;
+  font-size: 1.4rem;
+}
+
+.edit-modal button:hover {
+  background-color: var(--c5);
+  color: black;
+  transition: 250ms;
+  box-shadow: 5px 5px 0px black;
+}
+
 .hidden {
   display: none;
 }

@@ -32,7 +32,7 @@ export function Nav(projectsArr) {
     killChildren(contentWindow);
     const thisWeekTodos = dueThisWeek(projectsArr);
     thisWeekTodos.forEach((todo) => {
-      const thisWeekTodoElement = renderTodo(todo);
+      const thisWeekTodoElement = renderTodo(todo, null);
       contentWindow.appendChild(thisWeekTodoElement);
     });
   });
@@ -41,7 +41,7 @@ export function Nav(projectsArr) {
     killChildren(contentWindow);
     const nextWeekTodos = dueNextWeek(projectsArr);
     nextWeekTodos.forEach((todo) => {
-      const nextWeekTodoElement = renderTodo(todo);
+      const nextWeekTodoElement = renderTodo(todo, null);
       contentWindow.appendChild(nextWeekTodoElement);
     });
   });

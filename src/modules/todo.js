@@ -32,8 +32,7 @@ class Todo {
     title = "New todoer",
     description = "Add a description",
     priority = "High",
-    due = new Date(),
-    todoID = null
+    due = new Date()
   ) {
     this.title = title;
     this.description = description;

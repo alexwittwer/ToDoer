@@ -1,6 +1,8 @@
 import "./input.css";
 import { ProjectModal, TodoModal, editModal } from "./modules/TDRender";
 import { Content, Header, Title, Nav } from "./modules/static";
+import { returnProjects, saveProjects } from "./modules/storage-manager";
+
 // html container
 const container = document.querySelector(".container");
 const modals = document.createElement("div");
@@ -25,10 +27,17 @@ container.appendChild(todoContainer);
 
 // add test button
 
-/* const button = document.createElement("button");
+const button = document.createElement("button");
 button.textContent = "test button";
 button.addEventListener("click", () => {
-  console.log(projects);
+  saveProjects(projects);
 });
 container.appendChild(button);
- */
+
+const returnButton = document.createElement("button");
+returnButton.textContent = "test button 2";
+returnButton.addEventListener("click", () => {
+  const savedProjects = returnProjects();
+  console.log(savedProjects);
+});
+container.appendChild(returnButton);

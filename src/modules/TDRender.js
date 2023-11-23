@@ -261,9 +261,10 @@ export function editModal(currentProject, currentTodo) {
         priorityInput.value
       );
       // update content
-      updateProject(currentTodo, currentProject);
       updateContent(currentProject);
       toggleEditModal();
+      console.log(currentTodo);
+      console.log(currentProject);
     } else {
       console.error("currentTodo is null or undefined");
     }
@@ -329,6 +330,7 @@ export function renderTodo(currentTodo, currentProject) {
   const completedElemLabel = document.createElement("label");
   const id = crypto.randomUUID();
   const edit = document.createElement("button");
+  const deleteTodo = document.createElement("button");
 
   completedElem.type = "checkbox";
   completedElem.id = id;
@@ -358,6 +360,15 @@ export function renderTodo(currentTodo, currentProject) {
     killEditModal();
     document.body.appendChild(editModal(currentProject, currentTodo));
     toggleEditModal();
+    console.log(currentProject);
+    console.log(currentTodo);
+  });
+
+  deleteTodo.textContent = "Delete";
+  deleteTodo.classList.add("edit-btn", "delete-btn");
+  deleteTodo.addEventListener("click", (e) => {
+    currentProject.delete(currentTodo);
+    updateContent(currentProject);
   });
 
   const todo_elements = [
@@ -374,6 +385,7 @@ export function renderTodo(currentTodo, currentProject) {
 
   if (currentProject != null) {
     todoElem.appendChild(edit);
+    todoElem.appendChild(deleteTodo);
   }
 
   return todoElem;

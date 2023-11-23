@@ -106,8 +106,6 @@ export function dueThisWeek(projectArr) {
     });
   });
 
-  console.log(dueTodos);
-
   return dueTodos;
 }
 
@@ -250,8 +248,6 @@ export function editModal(currentProject, currentTodo) {
   dueLabel.appendChild(dueInput);
 
   submitButton.addEventListener("click", (e) => {
-    console.log(currentProject);
-    console.log(currentTodo);
     // Check if currentTodo is not null before calling edit()
     if (currentTodo) {
       currentTodo.edit(
@@ -263,8 +259,6 @@ export function editModal(currentProject, currentTodo) {
       // update content
       updateContent(currentProject);
       toggleEditModal();
-      console.log(currentTodo);
-      console.log(currentProject);
     } else {
       console.error("currentTodo is null or undefined");
     }
@@ -351,7 +345,6 @@ export function renderTodo(currentTodo, currentProject) {
   completedElem.addEventListener("click", (e) => {
     todoElem.classList.toggle("completed");
     currentTodo.markCompleted();
-    console.log(currentTodo);
   });
 
   edit.textContent = "Edit";
@@ -360,8 +353,6 @@ export function renderTodo(currentTodo, currentProject) {
     killEditModal();
     document.body.appendChild(editModal(currentProject, currentTodo));
     toggleEditModal();
-    console.log(currentProject);
-    console.log(currentTodo);
   });
 
   deleteTodo.textContent = "Delete";

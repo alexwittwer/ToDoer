@@ -3,7 +3,6 @@ import { addWeeks, isWithinInterval, format } from "date-fns";
 class Project {
   constructor(projectName = "New Project", ...args) {
     this.project = projectName;
-    this.id = Date.now();
     this.todos = [...args];
   }
 

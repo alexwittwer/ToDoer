@@ -354,6 +354,7 @@ export function renderTodo(currentTodo, currentProject) {
   const id = crypto.randomUUID();
   const edit = document.createElement("button");
   const deleteTodo = document.createElement("button");
+  const actions = document.createElement("div");
 
   completedElem.type = "checkbox";
   completedElem.id = id;
@@ -391,22 +392,25 @@ export function renderTodo(currentTodo, currentProject) {
     updateContent(currentProject);
   });
 
+  actions.classList.add("action-btns");
+
+  if (currentProject != null) {
+    actions.appendChild(edit);
+    actions.appendChild(deleteTodo);
+  }
+
   const todo_elements = [
     titleElem,
     descriptionElem,
     priorityElem,
     dueElem,
     completedElemLabel,
+    actions,
   ];
   todo_elements.forEach((element) => {
     element.classList.add("todo-param");
     todoElem.appendChild(element);
   });
-
-  if (currentProject != null) {
-    todoElem.appendChild(edit);
-    todoElem.appendChild(deleteTodo);
-  }
 
   return todoElem;
 }

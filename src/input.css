@@ -209,6 +209,14 @@
   color: black;
 }
 
+.action-btns {
+  display: flex;
+}
+
+.action-btns button {
+  margin: 3px;
+}
+
 /* --- Modals --- */
 
 .project-modal {
@@ -319,6 +327,21 @@
   color: black;
   transition: 250ms;
   box-shadow: 5px 5px 0px black;
+}
+
+.modal .close-btn {
+  position: absolute;
+  align-self: flex-end;
+  margin: 0px;
+  top: 0px;
+  right: 0px;
+  padding: 5px;
+}
+
+.modal .close-btn:hover {
+  box-shadow: none;
+  color: white;
+  background-color: rgb(160, 22, 22);
 }
 
 .hidden {

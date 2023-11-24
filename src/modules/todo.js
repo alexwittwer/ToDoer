@@ -32,14 +32,15 @@ class Todo {
     title = "New todoer",
     description = "Add a description",
     priority = "High",
-    due = new Date()
+    due = new Date(),
+    id = crypto.randomUUID()
   ) {
     this.title = title;
     this.description = description;
     this.priority = this.checkPriority(priority);
     this.due = due;
     this.completed = false;
-    this.todoID = crypto.randomUUID();
+    this.todoID = id;
   }
 
   updateTodoStrings(newTitle, newDescription) {

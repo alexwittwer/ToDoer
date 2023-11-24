@@ -1,5 +1,6 @@
 import { Project, Todo } from "./todo";
 import { addWeeks, isWithinInterval, format } from "date-fns";
+import { saveProject } from "./storage-manager";
 
 // --- Helper functions --- //
 

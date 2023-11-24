@@ -1,7 +1,7 @@
 import "./input.css";
 import { ProjectModal, TodoModal, editModal } from "./modules/TDRender";
 import { Content, Header, Title, Nav } from "./modules/static";
-import { returnProjects, saveProjects } from "./modules/storage-manager";
+import { returnProjects, updateLocalStorage } from "./modules/storage-manager";
 
 // html container
 const container = document.querySelector(".container");
@@ -11,7 +11,9 @@ const todoContainer = Content();
 document.body.appendChild(modals);
 
 // project storage
-const projects = [];
+let projects = returnProjects();
+
+console.log(projects);
 
 // populate page
 container.appendChild(ProjectModal(projects));
@@ -25,19 +27,7 @@ container.appendChild(Nav(projects));
 
 container.appendChild(todoContainer);
 
-// add test button
-
-const button = document.createElement("button");
-button.textContent = "test button";
-button.addEventListener("click", () => {
-  saveProjects(projects);
+// cheap way to update the local storage
+container.addEventListener("click", (e) => {
+  updateLocalStorage(projects);
 });
-container.appendChild(button);
-
-const returnButton = document.createElement("button");
-returnButton.textContent = "test button 2";
-returnButton.addEventListener("click", () => {
-  const savedProjects = returnProjects();
-  console.log(savedProjects);
-});
-container.appendChild(returnButton);

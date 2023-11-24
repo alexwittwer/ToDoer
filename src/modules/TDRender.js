@@ -192,9 +192,19 @@ export function TodoModal(currentProject) {
     // update content
     updateProject(newTodo, currentProject);
     updateContent(currentProject);
+    saveProject(currentProject);
     toggleTodoModal();
   });
 
+  const close = document.createElement("button");
+  close.classList.add("close-btn");
+  close.textContent = "X";
+  close.addEventListener("click", (e) => {
+    e.preventDefault();
+    toggleTodoModal();
+  });
+
+  form.appendChild(close);
   form.appendChild(titleLabel);
   form.appendChild(descriptionLabel);
   form.appendChild(priorityLabel);
@@ -265,6 +275,15 @@ export function editModal(currentProject, currentTodo) {
     }
   });
 
+  const close = document.createElement("button");
+  close.classList.add("close-btn");
+  close.textContent = "X";
+  close.addEventListener("click", (e) => {
+    e.preventDefault();
+    toggleEditModal();
+  });
+
+  form.appendChild(close);
   form.appendChild(titleLabel);
   form.appendChild(descriptionLabel);
   form.appendChild(priorityLabel);
@@ -282,7 +301,7 @@ export function ProjectModal(projectsArr) {
   const submitButton = document.createElement("button");
 
   form.setAttribute("action", "");
-  form.classList.add("project-modal", "hidden");
+  form.classList.add("modal", "project-modal", "hidden");
 
   titleInput.setAttribute("type", "text");
   titleInput.setAttribute("name", "Project title");
@@ -308,6 +327,15 @@ export function ProjectModal(projectsArr) {
     });
   });
 
+  const close = document.createElement("button");
+  close.classList.add("close-btn");
+  close.textContent = "X";
+  close.addEventListener("click", (e) => {
+    e.preventDefault();
+    toggleProjectModal(form);
+  });
+
+  form.appendChild(close);
   form.appendChild(titleLabel);
   form.appendChild(submitButton);
 

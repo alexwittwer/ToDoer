@@ -1,5 +1,11 @@
 import Logo from "../assets/todo-title.svg";
-import { dueThisWeek, dueNextWeek, killChildren, renderTodo } from "./TDRender";
+import {
+  dueThisWeek,
+  dueNextWeek,
+  killChildren,
+  renderTodo,
+  createProjectElement,
+} from "./TDRender";
 
 // Renders the navigation pane
 export function Nav(projectsArr) {
@@ -55,6 +61,14 @@ export function Nav(projectsArr) {
   navitems.forEach((element) => {
     nav.appendChild(element);
   });
+
+  // populate projects
+
+  if (projectsArr) {
+    projectsArr.forEach((item) => {
+      createProjectElement(item, projects);
+    });
+  }
 
   return nav;
 }

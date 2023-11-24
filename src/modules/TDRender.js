@@ -51,7 +51,7 @@ function updateProject(newTodo, currentProject) {
 }
 
 // creates a new project element in the nav pane, adds event listener to populate content pane
-function createProjectElement(project, parent) {
+export function createProjectElement(project, parent) {
   const newProjectElem = document.createElement("div");
   newProjectElem.textContent = project.project;
   newProjectElem.addEventListener("click", (e) => {

@@ -1,5 +1,8 @@
-import { addWeeks, isWithinInterval, format } from "date-fns";
-
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-use-before-define */
+/* eslint-disable class-methods-use-this */
+// eslint-disable-next-line max-classes-per-file
 class Project {
   constructor(projectName = "New Project", ...args) {
     this.project = projectName;
@@ -13,6 +16,7 @@ class Project {
       throw new Error("Error: argument is not a Todo item");
     }
   }
+
   delete(todo) {
     if (todo instanceof Todo) {
       const index = this.todos.indexOf(todo);
@@ -52,6 +56,7 @@ class Todo {
       throw new Error("Cannot add non-strings to title and description");
     }
   }
+
   changePriority(priority) {
     priority === "High" ? (this.priority = "Low") : (this.priority = "High");
   }
@@ -59,9 +64,8 @@ class Todo {
   checkPriority(input) {
     if (input === true) {
       return "High";
-    } else {
-      return "Low";
     }
+    return "Low";
   }
 
   markCompleted() {

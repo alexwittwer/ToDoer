@@ -1,11 +1,13 @@
+/* eslint-disable import/extensions */
+/* eslint-disable no-undef */
 import Logo from "../assets/todo-title.svg";
 import {
   dueThisWeek,
   dueNextWeek,
   killChildren,
-  renderTodo,
   createProjectElement,
 } from "./TDRender";
+import { renderTodo } from "./ModalRenders";
 
 // Renders the navigation pane
 export function Nav(projectsArr) {
@@ -76,18 +78,18 @@ export function Nav(projectsArr) {
 // Renders the title screen
 export function Title() {
   const container = document.createElement("div");
-  const title_1 = document.createElement("h1");
-  const title_2 = document.createElement("h1");
+  const title1 = document.createElement("h1");
+  const title2 = document.createElement("h1");
 
   container.classList.add("section-container-title");
-  title_1.classList.add("title", "title-one");
-  title_2.classList.add("title", "title-two");
+  title1.classList.add("title", "title-one");
+  title2.classList.add("title", "title-two");
 
-  title_1.textContent = "To";
-  title_2.textContent = "Doer//";
+  title1.textContent = "To";
+  title2.textContent = "Doer//";
 
-  container.appendChild(title_1);
-  container.appendChild(title_2);
+  container.appendChild(title1);
+  container.appendChild(title2);
 
   return container;
 }

@@ -1,5 +1,7 @@
+/* eslint-disable no-undef */
 import "./input.css";
-import { ProjectModal, TodoModal, editModal } from "./modules/TDRender";
+// eslint-disable-next-line import/extensions
+import { ProjectModal, TodoModal, editModal } from "./modules/ModalRenders";
 import { Content, Header, Title, Nav } from "./modules/static";
 import { returnProjects, updateLocalStorage } from "./modules/storage-manager";
 
@@ -9,12 +11,12 @@ const modals = document.createElement("div");
 const todoContainer = Content();
 
 // project storage
-let projects = returnProjects();
+const projects = returnProjects();
 
 // populate page
-container.appendChild(modals);
-container.appendChild(ProjectModal(projects));
-container.appendChild(TodoModal(null));
+document.body.appendChild(modals);
+modals.appendChild(ProjectModal(projects));
+modals.appendChild(TodoModal(null));
 modals.appendChild(editModal(null, null));
 container.appendChild(Title());
 container.appendChild(Header());
@@ -25,5 +27,6 @@ container.appendChild(todoContainer);
 
 // cheap way to update the local storage
 container.addEventListener("click", (e) => {
+  e.preventDefault();
   updateLocalStorage(projects);
 });

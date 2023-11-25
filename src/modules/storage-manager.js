@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-undef */
 import { Todo, Project } from "./todo";
 
 export function saveProject(currentProject) {
@@ -12,14 +14,15 @@ export function returnProjects() {
     const projectData = localStorage.getItem(key);
     const projectObj = JSON.parse(projectData);
 
-    const todos = projectObj.todos.map((todo) => {
-      return new Todo(
-        todo.title,
-        todo.description,
-        todo.priority,
-        new Date(todo.due)
-      );
-    });
+    const todos = projectObj.todos.map(
+      (todo) =>
+        new Todo(
+          todo.title,
+          todo.description,
+          todo.priority,
+          new Date(todo.due)
+        )
+    );
 
     const newProject = new Project(projectObj.project, ...todos);
     tempArray.push(newProject);

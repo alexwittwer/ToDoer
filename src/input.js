@@ -8,14 +8,11 @@ const container = document.querySelector(".container");
 const modals = document.createElement("div");
 const todoContainer = Content();
 
-document.body.appendChild(modals);
-
 // project storage
 let projects = returnProjects();
 
-console.log(projects);
-
 // populate page
+container.appendChild(modals);
 container.appendChild(ProjectModal(projects));
 container.appendChild(TodoModal(null));
 modals.appendChild(editModal(null, null));
@@ -24,7 +21,6 @@ container.appendChild(Header());
 container.appendChild(Nav(projects));
 
 // initial population
-
 container.appendChild(todoContainer);
 
 // cheap way to update the local storage

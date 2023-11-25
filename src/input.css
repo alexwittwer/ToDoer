@@ -391,15 +391,3 @@
     display: none;
   }
 }
-
-@keyframes slide-right {
-  to {
-    margin-left: 0px;
-  }
-}
-
-@media screen AND (max-width: 480px) {
-  * {
-    font-size: 12px;
-  }
-}

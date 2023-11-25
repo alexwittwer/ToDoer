@@ -1,3 +1,5 @@
+import Todo from "./todo";
+
 export default class Project {
   constructor(projectName = "New Project", ...args) {
     this.project = projectName;

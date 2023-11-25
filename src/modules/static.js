@@ -1,6 +1,7 @@
 /* eslint-disable import/extensions */
 /* eslint-disable no-undef */
 import Logo from "../assets/todo-title.svg";
+import Menu from "../assets/burger-menu.svg";
 import {
   dueThisWeek,
   dueNextWeek,
@@ -97,8 +98,10 @@ export function Title() {
 // Renders the header
 export function Header() {
   const header = document.createElement("header");
+  const div = document.createElement("div");
   const title = document.createElement("h3");
   const logo = new Image();
+  const menu = new Image();
 
   title.textContent = "ToDoer //";
 
@@ -107,8 +110,23 @@ export function Header() {
   header.classList.add("section-header");
   title.classList.add("app-title");
 
-  header.appendChild(title);
-  header.appendChild(logo);
+  menu.src = Menu;
+  menu.classList.add("menu");
+
+  div.appendChild(menu);
+  div.appendChild(title);
+  div.appendChild(logo);
+
+  div.classList.add("nav-hider");
+  menu.addEventListener("click", (e) => {
+    e.preventDefault();
+    const nav = document.querySelector(".nav-section");
+    const content = document.querySelector(".content-section");
+    nav.classList.toggle("hidden");
+    content.classList.toggle("full-bleed");
+  });
+
+  header.appendChild(div);
 
   return header;
 }

@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-use-before-define */

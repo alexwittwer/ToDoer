@@ -12,7 +12,8 @@ import {
   toggleTodoModal,
   createProjectElement,
 } from "./TDRender";
-import { Project, Todo } from "./todo";
+import Project from "./project";
+import Todo from "./todo";
 import { saveProject } from "./storage-manager";
 
 // --- Render Functions --- //

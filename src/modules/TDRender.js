@@ -1,7 +1,7 @@
 /* eslint-disable import/extensions */
 /* eslint-disable no-undef */
 import { addWeeks, isWithinInterval } from "date-fns";
-import { renderTodo, TodoModal } from "./ModalRenders";
+import { renderTodo, TodoModal } from "./ModalRenders.js";
 
 // --- Helper functions --- //
 

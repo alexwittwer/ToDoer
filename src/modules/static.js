@@ -7,7 +7,7 @@ import {
   killChildren,
   createProjectElement,
 } from "./TDRender";
-import { renderTodo } from "./ModalRenders";
+import { renderTodo } from "./ModalRenders.js";
 
 // Renders the navigation pane
 export function Nav(projectsArr) {

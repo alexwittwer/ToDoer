@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import "./input.css";
 // eslint-disable-next-line import/extensions
-import { ProjectModal, TodoModal, editModal } from "./modules/ModalRenders";
+import { ProjectModal, TodoModal, editModal } from "./modules/ModalRenders.js";
 import { Content, Header, Title, Nav } from "./modules/static";
 import { returnProjects, updateLocalStorage } from "./modules/storage-manager";
 

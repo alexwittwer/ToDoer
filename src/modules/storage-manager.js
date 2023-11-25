@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-undef */
-import { Todo, Project } from "./todo";
+import Todo from "./todo";
+import Project from "./project";
 
 export function saveProject(currentProject) {
   localStorage.setItem(currentProject.project, JSON.stringify(currentProject));

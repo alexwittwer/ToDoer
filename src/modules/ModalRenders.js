@@ -108,7 +108,6 @@ export function TodoModal(currentProject) {
   const dueLabel = document.createElement("label");
   const dueInput = document.createElement("input");
   const submitButton = document.createElement("button");
-  submitButton.type = "button";
 
   form.setAttribute("action", "");
   form.classList.add("modal", "todo-modal", "hidden");
@@ -116,6 +115,7 @@ export function TodoModal(currentProject) {
   titleInput.setAttribute("type", "text");
   titleInput.setAttribute("name", "Todoer title");
   titleInput.setAttribute("id", "title");
+  titleInput.required = true;
 
   priorityInput.setAttribute("type", "checkbox");
   priorityInput.setAttribute("name", "priority");
@@ -124,36 +124,24 @@ export function TodoModal(currentProject) {
   dueInput.setAttribute("type", "date");
   dueInput.setAttribute("name", "Due date");
   dueInput.setAttribute("id", "due");
+  dueInput.required = true;
 
   descriptionInput.setAttribute("type", "text");
   descriptionInput.setAttribute("name", "task description");
   descriptionInput.setAttribute("id", "taskdesc");
+  descriptionInput.required = true;
 
   descriptionLabel.textContent = "Description";
   titleLabel.textContent = "ToDoer title";
   priorityLabel.textContent = "Check for high priority";
   dueLabel.textContent = "Date due";
   submitButton.textContent = "Add new ToDoer";
+  submitButton.type = "submit";
 
   titleLabel.appendChild(titleInput);
   descriptionLabel.appendChild(descriptionInput);
   priorityLabel.appendChild(priorityInput);
   dueLabel.appendChild(dueInput);
-
-  submitButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    const newTodo = new Todo(
-      titleInput.value,
-      descriptionInput.value,
-      priorityInput.checked,
-      new Date(dueInput.value)
-    );
-    // update content
-    updateProject(newTodo, currentProject);
-    updateContent(currentProject);
-    saveProject(currentProject);
-    toggleTodoModal();
-  });
 
   const close = document.createElement("button");
   close.classList.add("close-btn");
@@ -169,6 +157,21 @@ export function TodoModal(currentProject) {
   form.appendChild(priorityLabel);
   form.appendChild(dueLabel);
   form.appendChild(submitButton);
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const newTodo = new Todo(
+      titleInput.value,
+      descriptionInput.value,
+      priorityInput.checked,
+      new Date(dueInput.value)
+    );
+    // update content
+    updateProject(newTodo, currentProject);
+    updateContent(currentProject);
+    saveProject(currentProject);
+    toggleTodoModal();
+  });
 
   return form;
 }
@@ -185,7 +188,6 @@ export function editModal(currentProject, currentTodo) {
   const dueLabel = document.createElement("label");
   const dueInput = document.createElement("input");
   const submitButton = document.createElement("button");
-  submitButton.type = "button";
 
   form.setAttribute("action", "");
   form.classList.add("modal", "edit-modal", "hidden");
@@ -193,6 +195,7 @@ export function editModal(currentProject, currentTodo) {
   titleInput.setAttribute("type", "text");
   titleInput.setAttribute("name", "Todoer title");
   titleInput.setAttribute("id", "title-edit");
+  titleInput.required = true;
 
   priorityInput.setAttribute("type", "checkbox");
   priorityInput.setAttribute("name", "priority");
@@ -201,37 +204,24 @@ export function editModal(currentProject, currentTodo) {
   dueInput.setAttribute("type", "date");
   dueInput.setAttribute("name", "Due date");
   dueInput.setAttribute("id", "due-edit");
+  dueInput.required = true;
 
   descriptionInput.setAttribute("type", "text");
   descriptionInput.setAttribute("name", "task description");
   descriptionInput.setAttribute("id", "taskdesc-edit");
+  descriptionInput.required = true;
 
   descriptionLabel.textContent = "Description";
   titleLabel.textContent = "ToDoer title";
   priorityLabel.textContent = "Check for high priority";
   dueLabel.textContent = "Date due";
   submitButton.textContent = "Submit changes";
+  submitButton.type = "submit";
 
   titleLabel.appendChild(titleInput);
   descriptionLabel.appendChild(descriptionInput);
   priorityLabel.appendChild(priorityInput);
   dueLabel.appendChild(dueInput);
-
-  submitButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    // Check if currentTodo is not null before calling edit()
-    if (currentTodo) {
-      currentTodo.edit(
-        titleInput.value,
-        descriptionInput.value,
-        new Date(dueInput.value),
-        priorityInput.value
-      );
-      // update content
-      updateContent(currentProject);
-      toggleEditModal();
-    }
-  });
 
   const close = document.createElement("button");
   close.classList.add("close-btn");
@@ -247,6 +237,22 @@ export function editModal(currentProject, currentTodo) {
   form.appendChild(priorityLabel);
   form.appendChild(dueLabel);
   form.appendChild(submitButton);
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    // Check if currentTodo is not null before calling edit()
+    if (currentTodo) {
+      currentTodo.edit(
+        titleInput.value,
+        descriptionInput.value,
+        new Date(dueInput.value),
+        priorityInput.value
+      );
+      // update content
+      updateContent(currentProject);
+      toggleEditModal();
+    }
+  });
 
   return form;
 }
@@ -270,21 +276,8 @@ export function ProjectModal(projectsArr) {
   titleLabel.textContent = "ToDoer title";
   titleLabel.appendChild(titleInput);
 
-  submitButton.setAttribute("type", "button");
   submitButton.textContent = "Add Project";
-  submitButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    const projects = document.querySelector(".projects-nav"); // necessary tight link
-    toggleProjectModal(form);
-    killChildren(projects);
-
-    // creates new project
-    const newProject = new Project(titleInput.value);
-    projectsArr.push(newProject);
-    projectsArr.forEach((item) => {
-      createProjectElement(item, projects);
-    });
-  });
+  submitButton.type = "submit";
 
   const close = document.createElement("button");
   close.classList.add("close-btn");
@@ -297,6 +290,20 @@ export function ProjectModal(projectsArr) {
   form.appendChild(close);
   form.appendChild(titleLabel);
   form.appendChild(submitButton);
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const projects = document.querySelector(".projects-nav"); // necessary tight link
+    toggleProjectModal(form);
+    killChildren(projects);
+
+    // creates new project
+    const newProject = new Project(titleInput.value);
+    projectsArr.push(newProject);
+    projectsArr.forEach((item) => {
+      createProjectElement(item, projects);
+    });
+  });
 
   return form;
 }

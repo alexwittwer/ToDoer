@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "date-fns": "^2.30.0",
-    "moment": "^2.29.4"
+    "moment": "^2.29.4",
+    "validate.js": "^0.13.1"
   }
 }

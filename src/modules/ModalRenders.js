@@ -17,6 +17,8 @@ import Project from "./project";
 import Todo from "./todo";
 import { saveProject } from "./storage-manager";
 
+const validate = require("validate.js");
+
 // --- Render Functions --- //
 
 // renders a new Todoer item, local function only
